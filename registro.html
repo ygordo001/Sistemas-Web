@@ -1,0 +1,44 @@
+<!doctype html public"-//W3C//DTD HTML 4.01//EN“>
+<html>
+	<head>
+		<script> 
+		function vervalores(){  
+         		var sAux=""; 
+         		var frm = document.getElementById("registro"); 
+			for (i=1;i<frm.elements.length;i++) 
+			{ 
+				sAux += "NOMBRE: " + frm.elements[i].name + " "; 
+                	        sAux += "VALOR: " + frm.elements[i].value + "\n"; 
+			} 
+			alert(sAux); 
+		} 
+		</script> 
+		<title> Registro </title>
+		<meta name="keywords" content="registro", "formulario">
+		<meta name="author" content="Yeray Gordo Castro">
+
+	</head>
+	<body bgcolor="#999">
+		<h1 style="text-align:center">Formulario de registro</h1>
+		<h3 style="text-align:center">Rellene los siguiente campos para realizar el registro</h3><br>
+		<form id='registro' name='registro' onSubmit='vervalores()'> 
+			<p style="text-align:center"><b><big>Nombre <span style="color: red">*</span>: </big></b><input type="text" name="nombre"></p>
+			<p style="text-align:center"><b><big>Apellidos <span style="color: red">*</span>: </big></b><input type="text" name="apellidos"></p>
+			<p style="text-align:center"><b><big>e-mail <span style="color: red">*</span>: </big></b><input type="text" name="email"></p>
+  			<p style="text-align:center"><b><big>Contraseña <span style="color: red">*</span>: </big></b><input type="password" name="password"></p>
+			<p style="text-align:center"><b><big>Repetir Contraseña <span style="color: red">*</span>: </big></b><input type="password" name="password"></p>
+			<p style="text-align:center"><b><big>Número de teléfono <span style="color: red">*</span>: </big></b><input type="text" name="telefono" length="9"></p>
+			<p style="text-align:center"><b><big>Especialidad <span style="color: red">*</span>: </big></b>
+			<select name="Especialidad">
+    				<option value="software">Ingeniería del Software</option>
+    				<option value="computadores">Ingeniería de Computadores</option>
+    				<option value="computacion">Computación</option>
+			</select>
+			<p style="text-align:center"><b><big>Foto: </big></b><input name="foto" type="file" /></p>
+  			<p style="text-align:center"><b><big>Tecnologias y herramientas en las que está interesado: </big></b></p>
+			<p style="text-align:center"><textarea rows="4" cols="50" name="intereses"></textarea>
+			<p style="text-align:center"><span style="color: red"><b><big>*</big></b></span> Los campos marcados con asterisco (*) son obligatorios. </p>
+			<br><p style="text-align:center"><input type=submit style="width:120px; height:40px; font-weight:bold;" value="Enviar"><span style="display:inline-block; width: 80px;"></span><input type=reset style="width:120px; height:40px; font-weight:bold;" value="Borrar datos"></p>
+			<p style="text-align:center"><img src="Imagenes/flechaIzda.png" alt="Volver" style="width:40px;height:15px;"> <a href='layout.html'>Volver al Inicio</a></p>
+	</body>
+</html>
