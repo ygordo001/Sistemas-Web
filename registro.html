@@ -53,9 +53,9 @@
 			// Verificar que los campos obligatorios están rellenados
 			if(nombre ==""|| nombre== null)
 				error += "\tDebe introducir un nombre.\n";	
-			if(contrasena.length <=6|| contrasena== null)
+			if(contrasena.length <6|| contrasena== null)
 				error += "\tDebe introducir una contraseña de al menos 6 caracteres.\n";
-			if(contrasena2.length <=6|| contrasena2== null)
+			if(contrasena2.length <6|| contrasena2== null)
 				error += "\tDebe introducir su contraseña por segunda vez.\n";
 			
 			
@@ -126,7 +126,7 @@
 	<body bgcolor="#999">
 		<h1 style="text-align:center">Formulario de registro</h1>
 		<h3 style="text-align:center">Rellene los siguiente campos para realizar el registro</h3><br>
-		<form id='registro' name='registro' onSubmit="return validacion();"> 
+		<form id='registro' name='registro' action="registrar.php" method="post" onSubmit="return validacion();"> 
 			<p style="text-align:center"><b><big>Nombre <span style="color: red">*</span>: </big></b><input type="text" id="nombre" name="nombre"></p>
 			<p style="text-align:center"><b><big>Apellidos <span style="color: red">*</span>: </big></b><input type="text" id="apellidos" name="apellidos"></p>
 			<p style="text-align:center"><b><big>e-mail <span style="color: red">*</span>: </big></b><input type="text" id="email" name="email"></p>
@@ -134,8 +134,8 @@
 			<p style="text-align:center"><b><big>Repetir Contraseña <span style="color: red">*</span>: </big></b><input type="password" id="password2" name="password2"></p>
 			<p style="text-align:center"><b><big>Número de teléfono <span style="color: red">*</span>: </big></b><input type="text" id="telefono" name="telefono" length="9"></p>
 			<p style="text-align:center"><b><big>Especialidad <span style="color: red">*</span>: </big></b>
-			<select id="especialidad" name="Especialidad">
-    				<option value="software">Ingeniería del Software</option>
+			<select id="especialidad" name="especialidad">
+    				<option value="software" selected>Ingeniería del Software</option>
     				<option value="computadores">Ingeniería de Computadores</option>
     				<option value="computacion">Computación</option>
 					<option value="otra" onclick="addOtraEsp()">Otra</option>
