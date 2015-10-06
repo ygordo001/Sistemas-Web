@@ -126,7 +126,7 @@
 	<body bgcolor="#999">
 		<h1 style="text-align:center">Formulario de registro</h1>
 		<h3 style="text-align:center">Rellene los siguiente campos para realizar el registro</h3><br>
-		<form id='registro' name='registro' action="registrar.php" method="post" onSubmit="return validacion();"> 
+		<form id='registro' name='registro' action="registrarConFoto.php" method="post" enctype="multipart/form-data" onSubmit="return validacion();"> 
 			<p style="text-align:center"><b><big>Nombre <span style="color: red">*</span>: </big></b><input type="text" id="nombre" name="nombre"></p>
 			<p style="text-align:center"><b><big>Apellidos <span style="color: red">*</span>: </big></b><input type="text" id="apellidos" name="apellidos"></p>
 			<p style="text-align:center"><b><big>e-mail <span style="color: red">*</span>: </big></b><input type="text" id="email" name="email"></p>
@@ -141,7 +141,7 @@
 					<option value="otra" onclick="addOtraEsp()">Otra</option>
 			</select>
 			<p style="text-align:center"><b><big><span id="campoOtraEsp" ></span><span id="asterisco" style="color: red"></span><span id="2puntos"></span><span id="cajaTexto" ></span></big></b></p>
-			<p style="text-align:center"><b><big>Foto: </big></b><input name="subirFoto" id="subirFoto" type="file" onchange="readURL(this);" accept="image/gif, image/jpeg, image/png"/></p>
+			<p style="text-align:center"><b><big><input type="hidden" name="MAX_FILE_SIZE" value="2000000" /> Foto: </big></b><input name="subirFoto" id="subirFoto" type="file" onchange="readURL(this);" accept="image/gif, image/jpeg, image/png"/></p>
   			<div class="fixed"><img id="foto" src="#" hidden="true"  /></div>
 			<p style="text-align:center"><b><big>Tecnologias y herramientas en las que está interesado: </big></b></p>
 			<p style=" text-align:center"><textarea rows="4" cols="50" name="intereses"></textarea>

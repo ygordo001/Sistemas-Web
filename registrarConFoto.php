@@ -7,12 +7,13 @@
 	$usuario = "u575179605_yg001";
 	$password = "websystems";
 	$baseDatos = "u575179605_quiz";
-	 
-	// Se crea la conexiÃ³n
+ 
+	// Se crea la conexión
 	$conn = mysql_connect($servidor, $usuario, $password);
-	// Se comprueba la conexiÃ³n
+	
+	// Se comprueba la conexión
 	if (!$conn) {
-		die("ConexiÃ³n fallida: " . mysql_error());
+		die("Conexión fallida: " . mysql_error());
 	}
 
 	// Seleccionamos la base de datos
@@ -34,16 +35,22 @@
 	else {
 		$otraEspecialidad = "";
 	}
+	if (isset($_FILES['subirFoto']) && $_FILES['subirFoto']['size'] > 0) { 
 
-	$sql = "INSERT INTO `usuario` (`Nombre`, `Apellidos`, `Email`, `Password`, `Telefono`, `Especialidad`, `OtraEspecialidad`, `Intereses`) VALUES ('$nombre', '$apellidos', '$email', '$contrasena', '$telefono', '$especialidad', '$otraEspecialidad', '$intereses');";
+		@list(, , $imtype, ) = getimagesize($_FILES['subirFoto']['tmp_name']);
+		 if (!isset($msg)) // Si no hay errores
+		{
+			$data = file_get_contents($_FILES['subirFoto']['tmp_name']);
+			$data = mysql_real_escape_string($data);
+		}
+	}
+	$sql = "INSERT INTO `usuario` (`Nombre`, `Apellidos`, `Email`, `Password`, `Telefono`, `Especialidad`, `OtraEspecialidad`, `Intereses`, `Imagen`) VALUES ('$nombre', '$apellidos', '$email', '$contrasena', '$telefono', '$especialidad', '$otraEspecialidad', '$intereses', '$data');";
 
 	if (!mysql_query($sql,$conn)) {
 	  die('Error: ' . mysql_error());
 	  }
-	else echo "<h1 align='center'>Datos aÃ±adidos correctamente en la base de datos</h1>";
-
-	echo "<h3 align='center'><a href='verUsuarios.php'>Pulse aquÃ­ para ver el contenido de la tabla</a></h3>";
-	 
+	else echo "<h1 align='center'>Datos añadidos correctamente en la base de datos</h1>";
+	echo "<h3 align='center'><a href='verUsuariosConFoto.php'>Pulse aquí para ver el contenido de la tabla</a></h3>"; 
 	mysql_close($conn);
 ?> 
 	</body>
