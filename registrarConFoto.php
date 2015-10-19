@@ -3,6 +3,7 @@
 	<body bgcolor="#999">
 
 <?php
+
 	$servidor = "mysql.hostinger.es";
 	$usuario = "u575179605_yg001";
 	$password = "websystems";
@@ -24,13 +25,46 @@
 	$apellidos = $_POST['apellidos'];
 	$email = $_POST['email'];
 	$contrasena = $_POST['password'];
+	$contrasena2 = $_POST['password2'];
 	$telefono = $_POST['telefono'];
 	$especialidad = $_POST['especialidad'];
 	$intereses = $_POST['intereses'];
+	
+	// Variable para comprobar si la validacion en el servidor ha sido correcta o no
+	$errores = false;
 
-	// Comprobamos que el campo para definir otra especialidad existe y cogemos su valor en caso de ser cierto
+	// Validamos el email por segunda vez	
+	if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		echo '</br> "'.$email.'" no es una dirección de correo válida.'; 
+		$errores = true;
+	}
+	// Validar nombre
+	if (empty($nombre)) {
+		echo '</br> El campo Nombre es erroneo.';
+		$errores = true;
+	}
+	// Validar apellidos
+	if (empty($apellidos)) {
+		echo '</br>El campo Apellidos es erroneo.';
+		$errores = true;
+	}
+	// Validar telefono
+	if(strlen($telefono)!=9 || !is_numeric($telefono)) {
+		echo '</br> "'.$telefono.'" no es un número de teléfono válido.';
+		$errores = true;
+	}
+	// Validar contraseña
+	if (empty($contrasena) || empty($contrasena2) || $contrasena!=$contrasena2 ) {
+		echo '</br> El campo Contraseña es erroneo.';
+		$errores = true;
+	}
+	// Comprobamos que el campo para definir otra especialidad existe, cogemos su valor en caso de ser cierto y lo validamos
 	if ($especialidad == 'otra') {
 		$otraEspecialidad = $_POST['otraEspecialidad'];
+		if(empty($otraEspecialidad)){
+			echo '</br>El campo de otra Especialidad es erroneo.';
+			$errores = true;
+		}
 	} 
 	else {
 		$otraEspecialidad = "";
@@ -45,12 +79,19 @@
 		}
 	}
 	$sql = "INSERT INTO `usuario` (`Nombre`, `Apellidos`, `Email`, `Password`, `Telefono`, `Especialidad`, `OtraEspecialidad`, `Intereses`, `Imagen`) VALUES ('$nombre', '$apellidos', '$email', '$contrasena', '$telefono', '$especialidad', '$otraEspecialidad', '$intereses', '$data');";
-
-	if (!mysql_query($sql,$conn)) {
-	  die('Error: ' . mysql_error());
-	  }
-	else echo "<h1 align='center'>Datos añadidos correctamente en la base de datos</h1>";
-	echo "<h3 align='center'><a href='verUsuariosConFoto.php'>Pulse aquí para ver el contenido de la tabla</a></h3>"; 
+	if ($errores==true){
+		echo "<h1 align='center'>Los datos del formulario no son correctos</h1>";
+		echo "<h3 align='center'>La información mostrada arriba sobre los campos erroneos únicamente se muestra para mostrar el correcto funcionamiento de la validacion en el servidor.</h3>";
+		echo "<h3 align='center'>En un caso real, esta información no debería mostrarse para no dar información sobre como funciona la validación de los datos en el servidor.</h3>";
+	}
+	else{
+		if (!mysql_query($sql,$conn)) {
+		  die('</br>Error: ' . mysql_error());
+		  }
+		else echo "<h1 align='center'>Datos añadidos correctamente en la base de datos</h1>";
+		echo "<h3 align='center'><a href='verUsuariosConFoto.php'>Pulse aquí para ver el contenido de la tabla</a></h3>";
+	}	
+	echo "<p style='text-align:center'><a href='layout.html'>Volver al Inicio</a></p>";
 	mysql_close($conn);
 ?> 
 	</body>

@@ -53,7 +53,7 @@
 		echo "<td>" . $row['OtraEspecialidad'] . "</td>";
 		echo "<td>" . $row['Intereses'] . "</td>";
 		if ($row['Imagen']!=""){
-			echo '<td><img src="data:image/jpeg;base64,'.base64_encode( $row['Imagen'] ).'"width="250" height="100"/></td>';
+			echo '<td><img src="data:image/jpeg;base64,'.base64_encode( $row['Imagen'] ).'"width="250" height="100" align="middle"/></td>';
 		}
 		else {
 			echo "<td></td>";
@@ -61,6 +61,7 @@
         echo "</tr>"; 
     }
 	mysql_close();
+	//echo "<p style='text-align:center'><a href='layout.html'>Volver al Inicio</a></p>";
 ?> 
 	</body>
 </html>

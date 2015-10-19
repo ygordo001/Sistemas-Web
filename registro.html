@@ -75,6 +75,7 @@
 			else if(!expEmail.test(email))
 				error += "\tIntroduzca un correo electronico de la UPV/EHU\n";
 				
+				
 			// Verificar el formato del número de teléfono
 			if(telefono=="" || telefono== null)
 				error += "\tEs necesario introducir un número de teléfono.\n";
@@ -126,7 +127,7 @@
 	<body bgcolor="#999">
 		<h1 style="text-align:center">Formulario de registro</h1>
 		<h3 style="text-align:center">Rellene los siguiente campos para realizar el registro</h3><br>
-		<form id='registro' name='registro' action="registrarConFoto.php" method="post" enctype="multipart/form-data" onSubmit="return validacion();"> 
+		<form id='registro' name='registro' action="registrarConFoto.php" method="post" enctype="multipart/form-data" onSubmit="return validacion();" > 
 			<p style="text-align:center"><b><big>Nombre <span style="color: red">*</span>: </big></b><input type="text" id="nombre" name="nombre"></p>
 			<p style="text-align:center"><b><big>Apellidos <span style="color: red">*</span>: </big></b><input type="text" id="apellidos" name="apellidos"></p>
 			<p style="text-align:center"><b><big>e-mail <span style="color: red">*</span>: </big></b><input type="text" id="email" name="email"></p>
