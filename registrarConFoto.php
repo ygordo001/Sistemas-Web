@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+	<head>	
+		<title> Registrar Usuario </title>
+		<meta name="keywords" content="registrar", "usuario", "formulario">
+		<meta name="author" content="Yeray Gordo Castro">
+
+	</head
 	<body bgcolor="#999">
 
 <?php
@@ -79,6 +85,7 @@
 		}
 	}
 	$sql = "INSERT INTO `usuario` (`Nombre`, `Apellidos`, `Email`, `Password`, `Telefono`, `Especialidad`, `OtraEspecialidad`, `Intereses`, `Imagen`) VALUES ('$nombre', '$apellidos', '$email', '$contrasena', '$telefono', '$especialidad', '$otraEspecialidad', '$intereses', '$data');";
+	
 	if ($errores==true){
 		echo "<h1 align='center'>Los datos del formulario no son correctos</h1>";
 		echo "<h3 align='center'>La información mostrada arriba sobre los campos erroneos únicamente se muestra para mostrar el correcto funcionamiento de la validacion en el servidor.</h3>";
@@ -91,7 +98,7 @@
 		else echo "<h1 align='center'>Datos añadidos correctamente en la base de datos</h1>";
 		echo "<h3 align='center'><a href='verUsuariosConFoto.php'>Pulse aquí para ver el contenido de la tabla</a></h3>";
 	}	
-	echo "<p style='text-align:center'><a href='layout.html'>Volver al Inicio</a></p>";
+	echo "<p style='text-align:center'><img src='imagenes/flechaIzda.png' alt='Volver' style='width:40px;height:15px;'><a href='layout.html'>Volver al Inicio</a></p>";
 	mysql_close($conn);
 ?> 
 	</body>

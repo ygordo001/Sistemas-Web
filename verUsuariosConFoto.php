@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+	<head>	
+		<title> Ver Usuarios </title>
+		<meta name="keywords" content="ver", "foto", "usuarios">
+		<meta name="author" content="Yeray Gordo Castro">
+
+	</head
 	<body bgcolor="#999">
 
 <?php
@@ -60,8 +66,9 @@
 		}
         echo "</tr>"; 
     }
+	echo "</table>";
 	mysql_close();
-	//echo "<p style='text-align:center'><a href='layout.html'>Volver al Inicio</a></p>";
+	echo "</br><p style='text-align:center'><img src='imagenes/flechaIzda.png' alt='Volver' style='width:40px;height:15px;'><a href='layout.html'>Volver al Inicio</a></p>";
 ?> 
 	</body>
 </html>
