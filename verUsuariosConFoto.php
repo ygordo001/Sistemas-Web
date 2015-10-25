@@ -5,7 +5,7 @@
 		<meta name="keywords" content="ver", "foto", "usuarios">
 		<meta name="author" content="Yeray Gordo Castro">
 
-	</head
+	</head>
 	<body bgcolor="#999">
 
 <?php

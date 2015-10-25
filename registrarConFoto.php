@@ -5,7 +5,7 @@
 		<meta name="keywords" content="registrar", "usuario", "formulario">
 		<meta name="author" content="Yeray Gordo Castro">
 
-	</head
+	</head>
 	<body bgcolor="#999">
 
 <?php

@@ -59,7 +59,8 @@
 			<p style="text-align:center"><img src="imagenes/flechaIzda.png" alt="Volver" style="width:40px;height:15px;"> <a href='layout.html'>Volver al Inicio</a></p>
 	</form>
 <?php
- if($_SERVER['REQUEST_METHOD'] == 'POST') {
+date_default_timezone_set('Europe/Madrid');
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$servidor = "mysql.hostinger.es";
 		$usuario = "u575179605_yg001";
 		$password = "websystems";
@@ -126,7 +127,23 @@
 					</script>
 <?php		  
 			}
+			
+			// Añadimos la información de la acción en la base de datos.
 			else{
+					
+					$ip = $_SERVER['REMOTE_ADDR'];
+					$sql2 = "SELECT IdCon FROM `conexiones` WHERE Email= '$email';";
+					$result= mysql_query($sql2);
+					if (!$result) { 
+						die('Error: ' . mysql_error());
+					}
+					$row = mysql_fetch_array($result);
+					$idCon = $row['IdCon'];
+					
+					$sql3 = "INSERT INTO `acciones` (`IdAcc`, `IdCon`, `Email`, `Tipo de Accion`, `Hora Conexion`, `IP Conexion`) VALUES (NULL, '$idCon', '$email', 'Insertar pregunta', CURRENT_TIMESTAMP, '$ip');";
+					if (!mysql_query($sql3,$conn)) {
+						die('</br>Error: ' . mysql_error());
+					}
 ?>
 					<script>
 					alert("La pregunta se ha añadido correctamente.");

@@ -49,8 +49,9 @@
 			<br><p style="text-align:center"><input type="submit" style="width:120px; height:40px; font-weight:bold;" value="Enviar"><span style="display:inline-block; width: 80px;"></span><input type=reset style="width:120px; height:40px; font-weight:bold;" value="Borrar datos"></p>
 			<p style="text-align:center"><img src="imagenes/flechaIzda.png" alt="Volver" style="width:40px;height:15px;"> <a href='layout.html'>Volver al Inicio</a></p>
 	</form>
-<?php
- if($_SERVER['REQUEST_METHOD'] == 'POST') {
+<?php 
+date_default_timezone_set('Europe/Madrid');
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$servidor = "mysql.hostinger.es";
 		$usuario = "u575179605_yg001";
 		$password = "websystems";
@@ -91,6 +92,13 @@
 				//Almacenamos el nombre de usuario  y el email en una variable de sesión usuario
 				$_SESSION['usuario'] = $usuario;
 				$_SESSION['email'] = $email;
+				
+				// Introducimos la información de la conexión en la base de datos
+				$sql2 = "INSERT INTO `conexiones` (`IdCon`, `Email`, `Hora de conexion`) VALUES (NULL, '$email', CURRENT_TIMESTAMP);";
+				
+				if (!mysql_query($sql2,$conn)) {
+					die('</br>Error: ' . mysql_error());
+				}
 				
 				//Redireccionamos a la pagina: insertarPregunta.php
 				header("Location: insertarPregunta.php");  
