@@ -56,15 +56,16 @@
 			</select>
 			<p style="text-align:center"><span style="color: red"><b><big>*</big></b></span> Los campos marcados con asterisco (*) son obligatorios. </p>
 			<br><p style="text-align:center"><input type="submit" style="width:120px; height:40px; font-weight:bold;" value="Enviar"><span style="display:inline-block; width: 80px;"></span><input type=reset style="width:120px; height:40px; font-weight:bold;" value="Borrar datos"></p>
+			<p style="text-align:center"><a href='verPreguntasXML.php'>Ver el contenido de la tabla preguntas</a></a></p>
 			<p style="text-align:center"><img src="imagenes/flechaIzda.png" alt="Volver" style="width:40px;height:15px;"> <a href='layout.html'>Volver al Inicio</a></p>
 	</form>
 <?php
 date_default_timezone_set('Europe/Madrid');
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-		$servidor = "mysql.hostinger.es";
-		$usuario = "u575179605_yg001";
-		$password = "websystems";
-		$baseDatos = "u575179605_quiz";
+	$servidor = "mysql.hostinger.es";
+	$usuario = "u575179605_yg001";
+	$password = "websystems";
+	$baseDatos = "u575179605_quiz";
 	 
 		// Se crea la conexión
 		$conn = mysql_connect($servidor, $usuario, $password);
@@ -150,9 +151,47 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 					location.href = "insertarPregunta.php";
 					</script>
 <?php	
+					// Añadimos la pregunta al archivo 'preguntas.xml'
+					$archivo = "preguntas.xml";
+					$preguntas = simplexml_load_file($archivo);
+					if ($preguntas === false) {
+?>
+						<script>
+						alert("Error al cargar el fichero XML");
+						location.href = "insertarPregunta.php";
+						</script>
+<?php	
+					}
+					else {
+						// Creamos un nuevo elemento 
+						$assessmentItem = $preguntas->addChild("assessmentItem");
+						// Añadimos los atributos
+						$assessmentItem->addAttribute('complexity',$complejidad);
+						$assessmentItem->addAttribute('subject', "");
+						// Creamos los hijos
+						$itemBody = $assessmentItem->addChild('itemBody');
+						$itemBody->addChild('p', $pregunta);
+						$correctResponse = $assessmentItem->addChild("correctResponse");
+						$correctResponse->addChild("value", $respuesta);
+						// Guardamos los cambios
+						$preguntas->asXML($archivo);
+						
+						$preguntas = new DOMDocument('1.0');
+						$preguntas->preserveWhiteSpace = false;
+						$preguntas->formatOutput = true;
+						$preguntas->loadXML($archivo->asXML());
+						$preguntas->saveXML();
+?>
+					<script>
+					alert("La pregunta se ha añadido correctamente al fichero XML.");
+					location.href = "insertarPregunta.php";
+					</script>
+<?php	
+					}
 				}
 		}
 		mysql_close($conn);
+ 
  }
 ?> 
 		</body>

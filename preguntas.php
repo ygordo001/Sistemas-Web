@@ -73,7 +73,7 @@ date_default_timezone_set('Europe/Madrid');
 	$fields_num = mysql_num_fields($result);
 	echo "<table align='center' border='0'><tr>";
 
-	// Se muestran los emcabezados de la tabla
+	// Se muestran los encabezados de la tabla
 	$field = mysql_fetch_field($result);
 	echo "<th align='left'><big> &nbsp {$field->name} &nbsp </big></th>";
 	$field = mysql_fetch_field($result);

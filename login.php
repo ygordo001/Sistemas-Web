@@ -52,10 +52,10 @@
 <?php 
 date_default_timezone_set('Europe/Madrid');
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-		$servidor = "mysql.hostinger.es";
-		$usuario = "u575179605_yg001";
-		$password = "websystems";
-		$baseDatos = "u575179605_quiz";
+	$servidor = "mysql.hostinger.es";
+	$usuario = "u575179605_yg001";
+	$password = "websystems";
+	$baseDatos = "u575179605_quiz";
 	 
 		// Se crea la conexión
 		$conn = mysql_connect($servidor, $usuario, $password);
