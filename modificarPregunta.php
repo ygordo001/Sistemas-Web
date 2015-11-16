@@ -1,4 +1,3 @@
-	
 <?php
 sleep(1);
 date_default_timezone_set('Europe/Madrid');
@@ -23,8 +22,6 @@ date_default_timezone_set('Europe/Madrid');
 		$respuesta = $_GET['respuesta'];
 		$complejidad = $_GET['complejidad'];
 		$numero = $_GET['numero'];
-		
-		echo "Datos: ".$pregunta .$respuesta  .$complejidad  .$numero;
 		
 		// Variable para comprobar si la validacion en el servidor ha sido correcta o no
 		$errores = false;
@@ -55,7 +52,11 @@ date_default_timezone_set('Europe/Madrid');
 			if (!mysql_query($sql,$conn)) {
 			  die('</br>Error: ' . mysql_error());
 			  echo "Error al realizar la modificacion en la BD.";		  
-			}	
+			}
+		echo "<p style='text-align:center'><big><b><span style='color: green'>Pregunta ".$numero ." modificada con éxito.</span></big></b></p>";
+		echo "<p style='text-align:left'><b><big>• Pregunta: &nbsp</big></b>".$pregunta."</p>";
+		echo "<p style='text-align:left'><b><big>• Respuesta: &nbsp</big></b>".$respuesta."</p>";
+		echo "<p style='text-align:left'><b><big>• Complejidad: &nbsp</big></b>".$complejidad."</p>";			
 		}
 		mysql_close($conn);
 ?> 

@@ -100,8 +100,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 					die('</br>Error: ' . mysql_error());
 				}
 				
-				//Redireccionamos a la pagina: insertarPregunta.php
-				header("Location: insertarPregunta.php");  
+				//Redireccionamos a la pagina: gestionPreguntas.php
+				header("Location: gestionPreguntas.php");  
 			}
 			
 			//En caso que la contraseña sea incorrecta enviamos un mensaje y redireccionamos a login.php
@@ -118,7 +118,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		else {
 ?>
 			<script>
-				alert("El e-mail introducido es incorrecto.");
+				alert("El email introducido es incorrecto.");
 				location.href = "login.php";
 			</script>
 <?php

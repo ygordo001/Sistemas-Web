@@ -9,7 +9,10 @@
 	<body bgcolor="#999">
 
 <?php
-
+	// Incluimos la clase nusoap
+	require_once('lib/nusoap.php');
+	require_once('lib/class.wsdlcache.php');
+	
 	$servidor = "mysql.hostinger.es";
 	$usuario = "u575179605_yg001";
 	$password = "websystems";
@@ -44,6 +47,18 @@
 		echo '</br> "'.$email.'" no es una dirección de correo válida.'; 
 		$errores = true;
 	}
+	
+	// Comprobamos si el email esta matriculado en SW
+	// Creamos el objeto de tipo soap_client
+	$soapclient1 = new nusoap_client( 'http://sw14.hol.es/ServiciosWeb/comprobarmatricula.php?wsdl', false);
+	// Llamamos a la función
+	$resulSoap = $soapclient1->call('comprobar',array( 'x'=>$email));
+	if($resulSoap == "NO") {
+		echo '</br> El correo electrónico "'.$email.'" no se encuentra matriculado en Sistemas Web.';
+		echo '</br> Respuesta de NuSoap: '.$resulSoap;
+		$errores = true;
+	}
+	
 	// Validar nombre
 	if (empty($nombre)) {
 		echo '</br> El campo Nombre es erroneo.';
@@ -64,6 +79,19 @@
 		echo '</br> El campo Contraseña es erroneo.';
 		$errores = true;
 	}
+	// Comprobamos si la contraseña se encuentra en el diccionario de contraseñas comunes
+	// Creamos el objeto de tipo soap_client
+	$soapclient2 = new nusoap_client( 'http://ygordo001.esy.es/Sistemas%20Web/comprobarContrasena.php?wsdl', false);
+	// Llamamos a la función
+	$resulSoap2=$soapclient2->call('comprobar',array('x'=>$contrasena));
+
+	if ( $resulSoap2 == "INVALIDA") {
+		echo '</br> La contraseña "'.$contrasena.'" es demasiado común.';
+		echo '</br> Respuesta de NuSoap: '.$resulSoap2;
+		$errores = true;
+	}
+	
+	
 	// Comprobamos que el campo para definir otra especialidad existe, cogemos su valor en caso de ser cierto y lo validamos
 	if ($especialidad == 'otra') {
 		$otraEspecialidad = $_POST['otraEspecialidad'];

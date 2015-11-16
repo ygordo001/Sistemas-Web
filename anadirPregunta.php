@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		
 <?php
+sleep(1);
 date_default_timezone_set('Europe/Madrid');
 	$servidor = "mysql.hostinger.es";
 	$usuario = "u575179605_yg001";
@@ -27,16 +24,6 @@ date_default_timezone_set('Europe/Madrid');
 		
 		// Variable para comprobar si la validacion en el servidor ha sido correcta o no
 		$errores = false;
-			
-		// Validamos la pregunta
-		if (empty($pregunta)) {
-			$errores = true;
-		}
-		
-		// Validamos la respuesta
-		if (empty($respuesta)) {
-			$errores = true;
-		}
 		
 		// Comprobamos la sesión y cogemos el valor de la variable email. 
 		session_start(); 
@@ -72,7 +59,6 @@ date_default_timezone_set('Europe/Madrid');
 					if (!mysql_query($sql3,$conn)) {
 						die('</br>Error: ' . mysql_error());
 					}
-					echo "La pregunta se ha añadido correctamente.";
 					
 					// Añadimos la pregunta al archivo 'preguntas.xml'
 					$archivo = "preguntas.xml";
@@ -94,16 +80,13 @@ date_default_timezone_set('Europe/Madrid');
 						// Guardamos los cambios
 						$preguntas->asXML($archivo);
 						
-						$preguntas = new DOMDocument('1.0');
-						$preguntas->preserveWhiteSpace = false;
-						$preguntas->formatOutput = true;
-						$preguntas->loadXML($archivo->asXML());
-						$preguntas->saveXML();
-
+						// Mostramos el mesaje de respuesta
+						echo "<p style='text-align:center'><b><big><span style='color: green'>Nueva pregunta añadida con éxito.</span></big></b></p>";
+						echo "<p style='text-align:left'><b><big>• Pregunta: &nbsp</big></b>".$pregunta."</p>";
+						echo "<p style='text-align:left'><b><big>• Respuesta: &nbsp</big></b>".$respuesta."</p>";
+						echo "<p style='text-align:left'><b><big>• Complejidad: &nbsp</big></b>".$complejidad."</p>";		
 					}
 				}
 		}
 		mysql_close($conn);
-?> 
-		</body>
-	</html>
+?>
