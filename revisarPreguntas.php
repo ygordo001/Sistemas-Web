@@ -92,13 +92,13 @@
 <?php
 	// Comprobamos la sesión y cogemos el valor de la variable email. 
 		session_start(); 
-			if(isset($_SESSION['usuario'])) {
+			if(isset($_SESSION['usuario']) && $_SESSION['profesor']=="Si") {
 				$email = $_SESSION['email'];
 			}
 			else {
 ?>
 					<script>
-					alert("Error al comprobar la sesión de usuario.");
+					alert("Error al comprobar la sesión de usuario. Esta página está restringida a los profesores.");
 					location.href = "login.php";
 					</script>
 <?php

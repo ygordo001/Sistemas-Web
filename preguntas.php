@@ -12,6 +12,7 @@
 	<h3 style="text-align:center">A continuación se le muestran las preguntas almacenadas en la base de datos</h3><br>
 	
 <?php
+header('Content-Type: text/html; charset=UTF-8');
 date_default_timezone_set('Europe/Madrid');
 		
 	$servidor = "mysql.hostinger.es";

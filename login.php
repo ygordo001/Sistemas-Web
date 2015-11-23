@@ -103,9 +103,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 				//Redireccionamos a la pagina correspondiente
 				if ($row["Profesor"] == "Si" ){
 					header("Location: revisarPreguntas.php");
+					$_SESSION['profesor'] = "Si";
 				}
 				else if ($row["Profesor"] == "No"){
 					header("Location: gestionPreguntas.php");
+					$_SESSION['profesor'] = "No";
 				}
 			}
 			
