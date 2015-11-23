@@ -30,19 +30,6 @@
 		}
 	}
 	
-	function anadirPregunta() {
-		if (validacion()== true && XMLHttpRequestObject ){
-			XMLHttpRequestObject.onreadystatechange=estadoPeticion;
-			var pregunta = document.getElementById("pregunta").value;
-			var respuesta = document.getElementById("respuesta").value;
-			var complejidad = document.getElementById("complejidad").value;
-			var numero = document.getElementById("numero").value;
-			
-			XMLHttpRequestObject.open("GET", "anadirPregunta.php?pregunta=" + pregunta + "&respuesta=" + respuesta + "&complejidad=" + complejidad, true);
-			XMLHttpRequestObject.send();
-		}
-	}
-	
 	function modificarPregunta() {
 		if (validacionModificar()== true && XMLHttpRequestObject){
 			XMLHttpRequestObject.onreadystatechange=estadoPeticion;
@@ -56,32 +43,6 @@
 		}
 	}
 	</script>
-	<script type="text/javascript">
-		function validacion(){
-		
-			// Leer valores del formulario
-			var pregunta = document.getElementById("pregunta").value;
-			var respuesta = document.getElementById("respuesta").value;
-			var complejidad = document.getElementById("complejidad").value;
-			var error = "";
-			// Verificar el formato de la pregunta
-			if(pregunta =="" || pregunta== null)
-				error += "\tDebe introducir una pregunta.\n";
-					
-			// Verificar el formato de la respuesta
-			if(respuesta =="" || respuesta== null)
-				error += "\tDebe introducir una respuesta.\n";
-			
-			// Si hay algún error, mostrar el mensaje
-			if(error != "")
-			{
-				alert("Validación del formulario:\n" + error);
-				return false;
-			}
-			else
-				return true;
-		}
-		</script>
 		<script type="text/javascript">
 		function validacionModificar(){
 		
@@ -116,8 +77,8 @@
 		}
 		</script>
 		
-		<title> Gestión Preguntas </title>
-		<meta name="keywords" content="gestionar", "pregunta", "formulario", "alumno">
+		<title> Revisión Preguntas </title>
+		<meta name="keywords" content="revisar", "pregunta", "formulario", "profesor">
 		<meta name="author" content="Yeray Gordo Castro">
 
 	</head>
@@ -126,7 +87,7 @@
         <a href="logout.php">LogOut</a> 
     </div>
 	
-	 <br><h1 style="text-align:center">Gestión Preguntas</h1>
+	 <br><h1 style="text-align:center">Revisión Preguntas</h1>
 	<h3 style="text-align:center">Añada o modifique sus preguntas</h3><br>
 <?php
 	// Comprobamos la sesión y cogemos el valor de la variable email. 
@@ -144,8 +105,9 @@
 			}
 ?>
 	<div>
-		<div id="divPreguntas" style="width:45%;float:left; margin-left:5%;">
-		<h3 style="text-align:center">Preguntas añadidas por: &nbsp &nbsp &nbsp &nbsp <span style="color: orangered"><?php echo $email?></span> </h3>
+		<div id="divPreguntas" style="width:45%;float:left; height:425px; margin-left:5%;">
+		<h3 style="text-align:center">Preguntas añadidas por los alumnos </h3>
+		
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 	$servidor = "mysql.hostinger.es";
@@ -159,7 +121,7 @@ header('Content-Type: text/html; charset=UTF-8');
 	mysql_select_db($baseDatos, $conn);
 	
 	
-	$sqlpreguntas = "SELECT `Numero`, `Complejidad`, `Pregunta` FROM `preguntas` WHERE Email='$email' ";
+	$sqlpreguntas = "SELECT `Numero`, `Email`, `Complejidad`, `Pregunta`, `Respuesta` FROM `preguntas`";
 	$result=mysql_query($sqlpreguntas);
 	if (!mysql_query($sqlpreguntas,$conn)) {
 		die('</br>Error: ' . mysql_error());
@@ -176,19 +138,24 @@ header('Content-Type: text/html; charset=UTF-8');
 	echo "<th><big> &nbsp {$field->name} &nbsp </big></th>";
 	$field = mysql_fetch_field($result);
 	echo "<th><big> &nbsp {$field->name} &nbsp </big></th>";
+	$field = mysql_fetch_field($result);
+	echo "<th><big> &nbsp {$field->name} &nbsp </big></th>";
+	$field = mysql_fetch_field($result);
+	echo "<th><big> &nbsp {$field->name} &nbsp </big></th>";
 	echo "</tr>\n";
 	echo "<tr></br></tr><tr></tr>";
-	
+
 	while($row = mysql_fetch_array($result)) { 
         echo "<tr></tr><tr>";
-		echo "<td align='center'><big><b>" . $row['Numero'] ."</b></big></td>"; 
+		echo "<td align='center'><b><big>" . $row['Numero'] ."</big></b></td>"; 
+		echo "<td align='center'>" . $row['Email'] ."</td>"; 
         echo "<td align='center'>" . $row['Complejidad'] ."</td>"; 
         echo "<td align='center'>" . $row['Pregunta'] . "</td>";
+		echo "<td align='center'>" . $row['Respuesta'] . "</td>";
 		echo "<td></td>";
         echo "</tr>"; 
     }
 	echo "</table>";
-	
 ?>		
 		</div>
 		<div style="float:center;">
@@ -199,13 +166,13 @@ header('Content-Type: text/html; charset=UTF-8');
 		</div>
 		</div>		
 		<div id="divFormulario" style="width:45%; float:right; margin-right:5%;">
-			<p style="text-align:center">Para modificar una pregunta deberá indicar su Numero</p>
+			<h3 style="text-align:center">Modificar pregunta:</h3>
 			<form id='formulario' name='formulario' > 
 				<p style="text-align:center"><b><big>Pregunta <span style="color: red">*</span>: </big></b></p>
 				<p style=" text-align:center"><textarea rows="3" cols="50" id="pregunta" name="pregunta"></textarea>
 				<p style="text-align:center"><b><big>Respuesta <span style="color: red">*</span>: </big></b></p>
 				<p style=" text-align:center"><textarea rows="3" cols="50" id="respuesta" name="respuesta"></textarea>
-				<p style="text-align:center"><b><big>Numero: </big></b><input type="text" id="numero" name="numero">
+				<p style="text-align:center"><b><big>Numero <span style="color: red">*</span>: </big></b><input type="text" id="numero" name="numero">
 				<b><big>&nbsp Complejidad: </big></b>
 				<select id="complejidad" name="complejidad">
 					<option value="NULL" selected></option>
@@ -216,11 +183,10 @@ header('Content-Type: text/html; charset=UTF-8');
 					<option value="5">5</option>
 				</select>
 				<p style="text-align:center"><span style="color: red"><b><big>*</big></b></span> Los campos marcados con asterisco (*) son obligatorios. </p>
-				<br><p style="text-align:center"><input type=button style="width:120px; height:40px; font-weight:bold;" id="botonAnadir" value="Añadir" onclick="anadirPregunta()"><span style="display:inline-block; width: 80px;"></span><input type=button style="width:120px; height:40px; font-weight:bold;" value="Modificar" onclick = "modificarPregunta()"></p>
+				<br><p style="text-align:center"><input type=button style="width:120px; height:40px; font-weight:bold;" value="Modificar" onclick = "modificarPregunta()"></p>
 			</form>
 		</div>
 		<div style="width:100%; position:fixed; bottom:0; float:center;">
-			<p style="text-align:center"><a href='verPreguntasXML.php'>Ver el contenido de la tabla preguntas</a></p>
 			<p style="text-align:center"><img src="imagenes/flechaIzda.png" alt="Volver" style="width:40px;height:15px;"> <a href='layout.html'>Volver al Inicio</a></p>
 		</div>
 	</div>

@@ -8,7 +8,7 @@
 			var email = document.getElementById("email").value;
 			var contrasena = document.getElementById("contrasena").value;
 			
-			var expEmail=/^((?:[a-z][a-z]+))([0-9]{3})((@ikasle.ehu.es)|(@ikasle.ehu.eus))$/; // Expresión regular para validar el email
+			var expEmail=/^((?:[a-z][a-z]+))([0-9]{3})((@ikasle.ehu.es)|(@ikasle.ehu.eus)|(@ehu.es))$/; // Expresión regular para validar el email
 			var error = "";
 			
 			// Verificar que el campo contraseña es correcto
@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$email = $_POST['email'];
 		$contrasena = $_POST['contrasena'];
 		
-		$sql = "SELECT `Email`,`Password` FROM `usuario` WHERE email='$email';";
+		$sql = "SELECT `Email`,`Password`,`Profesor`  FROM `usuario` WHERE email='$email';";
 		
 		$result = mysql_query($sql,$conn);
 		
@@ -83,8 +83,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		//Validamos si el nombre del administrador existe en la base de datos o es correcto
 		if($row = mysql_fetch_array($result)) { 
 		
-			//Si el usuario es correcto ahora validamos su contraseña
-			if($row["Password"] == $contrasena) {
+			//Si el usuario es correcto ahora validamos su contraseña y
+			if($row["Password"] == $contrasena ) {
 				
 				//Creamos sesión
 				session_start();  
@@ -100,8 +100,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 					die('</br>Error: ' . mysql_error());
 				}
 				
-				//Redireccionamos a la pagina: gestionPreguntas.php
-				header("Location: gestionPreguntas.php");  
+				//Redireccionamos a la pagina correspondiente
+				if ($row["Profesor"] == "Si" ){
+					header("Location: revisarPreguntas.php");
+				}
+				else if ($row["Profesor"] == "No"){
+					header("Location: gestionPreguntas.php");
+				}
 			}
 			
 			//En caso que la contraseña sea incorrecta enviamos un mensaje y redireccionamos a login.php

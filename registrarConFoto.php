@@ -112,7 +112,13 @@
 			$data = mysql_real_escape_string($data);
 		}
 	}
-	$sql = "INSERT INTO `usuario` (`Nombre`, `Apellidos`, `Email`, `Password`, `Telefono`, `Especialidad`, `OtraEspecialidad`, `Intereses`, `Imagen`) VALUES ('$nombre', '$apellidos', '$email', '$contrasena', '$telefono', '$especialidad', '$otraEspecialidad', '$intereses', '$data');";
+	if ($email="web000@ehu.es"){
+		$profesor="Si";
+		}
+	else { 
+		$profesor="No";
+	}
+	$sql = "INSERT INTO `usuario` (`Nombre`, `Apellidos`, `Email`, `Password`, `Telefono`, `Especialidad`, `OtraEspecialidad`, `Intereses`, `Imagen`, `Profesor`) VALUES ('$nombre', '$apellidos', '$email', '$contrasena', '$telefono', '$especialidad', '$otraEspecialidad', '$intereses', '$data', '$profesor',);";
 	
 	if ($errores==true){
 		echo "<h1 align='center'>Los datos del formulario no son correctos</h1>";

@@ -1,10 +1,10 @@
 <?php
 sleep(1);
 date_default_timezone_set('Europe/Madrid');
-	$servidor = "mysql.hostinger.es";
-	$usuario = "u575179605_yg001";
-	$password = "websystems";
-	$baseDatos = "u575179605_quiz";
+	$servidor = "localhost";
+	$usuario = "root";
+	$password = "";
+	$baseDatos = "quiz";
 	 
 		// Se crea la conexión
 		$conn = mysql_connect($servidor, $usuario, $password);
